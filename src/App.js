@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import AppRouter from "./components/AppRouter";
+import authContext from "./context/authContext";
 
-function App() {
+const App = () => {
+  const [auth, setAuth] = useState({
+    id: null,
+    email: "",
+    firstName: "",
+  });
+
+  const isAuth = !!auth.id; // приводит значение к булиан типу
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <authContext.Provider value={{ auth, setAuth, isAuth }}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </authContext.Provider>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,52 @@
+    *{
+        margin: 0;
+        padding: 0;
+        outline: none;
+    }
+
+    .main-authorization{
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items:center;
+        justify-content: center;
+        min-height: 400px;
+    }
+
+
+    .main-authorization input{
+        padding-left: 15px;
+        width: 500px;
+        border:none;
+        font-size: 18px;
+    }
+
+    .main-authorization div{
+        border: 3px solid;
+        height: 50px;
+        max-width: 500px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        display: flex;
+        border-color: #374151;
+    }
+
+    .button-log-in{
+        width: 150px;
+        height: 50px;
+        background-color: #1F2937;
+        color: #FAFAFA;
+        border: 3px solid #F3F4F6;
+        font-size: 18px;
+    }
+
+    .logo{
+        font-size: 50px;
+        color: #1F2937;
+    }
+
+    .footer-container{
+        display: flex;
+    }
+
+    
