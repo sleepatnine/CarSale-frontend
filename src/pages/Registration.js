@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import useInput from "./../hooks/useInput";
 import { NavLink } from "react-router-dom";
-import { MARKET_ROUTE, LIKES_ROUTE } from "./../utils/consts";
+import { MARKET_ROUTE } from "./../utils/consts";
+import "./../styles/Registration.css";
+import { useFormik } from "formik";
+import RegFormShema from "../shemas/RegFormShema";
 
 const Registration = () => {
-  const email = useInput("", { isEmpty: true, minLength: 3, isEmail: true });
-  const password = useInput("", { isEmpty: true, minLength: 8, maxLength: 20 });
-  const firstName = useInput("", { isEmpty: true, minLength: 2 });
-  const secPassword = useInput("", { isEmpty: true, isSame: true });
-  const phoneNumber = useInput("", { isEmpty: true });
-
   const [data, setData] = useState(null);
 
-  const onRegistration = async (e) => {
+  const onRegistration = async (e,values) => {
     e.preventDefault();
     let result = await fetch("http://localhost:8080/api/v1/user/register", {
       method: "POST",
@@ -21,106 +17,155 @@ const Registration = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email.value,
-        firstName: firstName.value,
-        phoneNumber: phoneNumber.value,
-        password: password.value,
+        email: formik.values.email,
+        firstName: formik.values.firstName,
+        phoneNumber: formik.values.phoneNumber,
+        password: formik.values.password,
       }),
     });
 
     let dataJSON = await result.json();
-    console.log(dataJSON);
     setData(dataJSON);
   };
 
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      phoneNumber: "",
+      password: "",
+      email: "",
+    },
+    validationSchema: RegFormShema,
+  });
+
   return (
-    <div>
-      <form onSubmit={onRegistration}>
-        <h1>Регистрация</h1>
-        <input
-          onChange={(e) => email.onChange(e)}
-          onBlur={(e) => email.onBlur(e)}
-          value={email.value}
-          name="email"
-          type="text"
-          placeholder="Enter email"
-        />
-        {email.isDirty && email.isEmpty && (
-          <div style={{ color: "red" }}>Поле не заполнено</div>
-        )}
-        {email.isDirty && email.minLengthError && (
-          <div style={{ color: "red" }}>Слишком короткий майл</div>
-        )}
-        {email.isDirty && email.emailError && (
-          <div style={{ color: "red" }}>Неккоректно введён майл</div>
-        )}
-        {firstName.isDirty && firstName.isEmpty && (
-          <div style={{ color: "red" }}>Поле не заполнено</div>
-        )}
-        {firstName.isDirty && firstName.minLengthError && (
-          <div style={{ color: "red" }}>
-            Имя не может быть короче 2 символов
+    <div className="main">
+      <div className="reg-container">
+        <div className="reg-content">
+          <div className="reg-form">
+            <form onSubmit={onRegistration}>
+              <h2>Регистрация</h2>
+              <div className="reg-form-group">
+                <img
+                  className="reg-icon"
+                  src="https://img.icons8.com/ios-glyphs/344/contacts.png"
+                ></img>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  name="email"
+                  type="email"
+                  placeholder="Enter email"
+                  className="reg-form-input"
+                />
+                <div className="error-valid-massage">
+                  &nbsp;
+                  {formik.touched.email && formik.errors.email
+                    ? formik.errors.email
+                    : null}
+                </div>
+              </div>
+              <div className="reg-form-group">
+                <img
+                  className="reg-icon"
+                  src="https://img.icons8.com/material/344/face-id--v1.png"
+                ></img>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.firstName}
+                  name="firstName"
+                  type="text"
+                  placeholder="Enter first name"
+                  className="reg-form-input"
+                />
+                <div className="error-valid-massage">
+                  &nbsp;
+                  {formik.touched.firstName && formik.errors.firstName
+                    ? formik.errors.firstName
+                    : null}
+                </div>
+              </div>
+              <div className="reg-form-group">
+                <img
+                  className="reg-icon"
+                  src="https://img.icons8.com/fluency-systems-regular/344/call-squared.png"
+                ></img>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phoneNumber}
+                  name="phoneNumber"
+                  type="tel"
+                  placeholder="Введите номер телефона"
+                  className="reg-form-input"
+                />
+                <div className="error-valid-massage">
+                  &nbsp;
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber
+                    ? formik.errors.phoneNumber
+                    : null}
+                </div>
+              </div>
+              <div className="reg-form-group">
+                <img
+                  className="reg-icon"
+                  src="https://img.icons8.com/material/344/password--v1.png"
+                ></img>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  name="password"
+                  type="password"
+                  placeholder="Enter password"
+                  className="reg-form-input"
+                />
+                <div className="error-valid-massage">
+                  &nbsp;
+                  {formik.touched.password && formik.errors.password
+                    ? formik.errors.password
+                    : null}
+                </div>
+              </div>
+              <div className="reg-form-group">
+                <img
+                  className="reg-icon"
+                  src="https://img.icons8.com/material-outlined/344/password.png"
+                ></img>
+                <input
+                  className="reg-form-input"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.secPassword}
+                  name="secPassword"
+                  type="password"
+                  placeholder="repeat password"
+                />
+                <div className="error-valid-massage">
+                  &nbsp;
+                  {formik.touched.secPassword && formik.errors.secPassword
+                    ? formik.errors.secPassword
+                    : null}
+                </div>
+                {data?.message ? (
+                  <div style={{ color: "red" }}>{data.message}</div>
+                ) : null}
+              </div>
+              <button className="reg-button" type="submit">
+                Зарегестроваться
+              </button>
+            </form>
           </div>
-        )}
-        <input
-          onChange={(e) => firstName.onChange(e)}
-          onBlur={(e) => firstName.onBlur(e)}
-          value={firstName.value}
-          name="email"
-          type="text"
-          placeholder="Enter first name"
-        />
-        {password.isDirty && password.isEmpty && (
-          <div style={{ color: "red" }}>Поле не заполнено</div>
-        )}
-        {password.isDirty && password.minLengthError && (
-          <div style={{ color: "red" }}>Слишком короткий пароль</div>
-        )}
-        {password.isDirty && password.maxLengthError && (
-          <div style={{ color: "red" }}>слишком длинный пароль</div>
-        )}
-        {phoneNumber.isDirty && phoneNumber.isEmpty && (
-          <div style={{ color: "red" }}>Поле не заполнено</div>
-        )}
-        <input
-          onChange={(e) => phoneNumber.onChange(e)}
-          onBlur={(e) => phoneNumber.onBlur(e)}
-          value={phoneNumber.value}
-          name="phoneNumber"
-          type="text"
-          placeholder="Введите номер телефона"
-        />
-        <input
-          onChange={(e) => password.onChange(e)}
-          onBlur={(e) => password.onBlur(e)}
-          value={password.value}
-          name="password"
-          type="text"
-          placeholder="Enter password"
-        />
-        {secPassword.isDirty && secPassword.isEmpty && (
-          <div style={{ color: "red" }}>Поле не заполнено</div>
-        )}
-        <input
-          onChange={(e) => secPassword.onChange(e)}
-          onBlur={(e) => secPassword.onBlur(e)}
-          value={secPassword.value}
-          name="secondPassword"
-          type="text"
-          placeholder="repeat password"
-        />
-        {password.value !== secPassword.value && (
-          <div style={{ color: "red" }}>пароли не совпадают</div>
-        )}
-        <div>
-          <NavLink to={MARKET_ROUTE}>LOGO</NavLink>
+          <div className="image">
+            <div className="reg-logo">
+              <NavLink to={MARKET_ROUTE}>CarSale</NavLink>
+            </div>
+            <img src="https://a.d-cd.net/twAAAgLKeOA-960.jpg"></img>
+          </div>
         </div>
-        <div>
-          <NavLink to={LIKES_ROUTE}>LIKES</NavLink>
-        </div>
-        {data.message ? <div  style={{ color: "red" }}>{data.message}</div> : null}
-        <button type="submit">Registration</button>
-      </form>
+      </div>
     </div>
   );
 };

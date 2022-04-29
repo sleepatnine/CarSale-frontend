@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;800&display=swap");
 
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: #e6e6e6;
+}
+
+div {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
 body {
   font-size: 13px;
   font-family: "Poppins", sans-serif;
@@ -17,61 +29,71 @@ a {
   text-decoration: underline;
 }
 
-.logo:first-child {
+.reg-logo:first-child {
   font-size: 45px;
   font-weight: 600;
   font-family: "Poppins", SemiBold;
-  margin: 0;
+  margin-top: -12px;
   text-decoration: none;
+  margin-bottom: 25px;
+
+  margin-left: auto;
 }
 
-h2 {
+.reg-form h2 {
   font-family: "Poppins", sans-serif;
   line-height: 1.66;
   margin: 0;
   margin-bottom: 0px;
   padding: 0;
   font-weight: 300;
-  color: #222;
+  color: #1f2937;
   font-size: 36px;
+  align-self: center;
+  margin-bottom: 40px;
 }
 
 .main {
-  background: #f8f8f8;
-  padding: 150px 0;
+  padding: 4% 0;
 }
 
-.container {
+.reg-container {
   display: flex;
   width: 900px;
   height: 600px;
   background: #fff;
   margin: 0 auto;
-  -webkit-box-shadow: 0 0.5px 12px 0.17px;
-  -webkit-border-radius: 20px;
+  box-shadow: 5px 1px 30px 1px #1f2937;
+  border-radius: 20px;
 }
-form {
+
+.reg-form form {
   display: flex;
   flex-direction: column;
   min-height: 375px;
 }
-.form {
+.reg-form {
   display: flex;
   flex-direction: column;
-  margin-right: 90px;
+  margin-right: 35px;
   margin-left: 80px;
   width: 50%;
   overflow: hidden;
 }
 
-.content {
+.reg-content {
   display: flex;
-  padding-top: 67px;
-  padding-bottom: 87px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
-.icon {
+.reg-icon {
   width: 20px;
+  position: absolute;
+  left: 5px;
+  top: 24%;
+  transform: translateY(-50%);
+  display: inline-block;
 }
 
 .image {
@@ -86,7 +108,6 @@ img {
 }
 
 input {
-  margin: 5px 20px 5px 5px;
   border: none;
   background: no-repeat bottom, 50% calc(100% - 1px);
   background-size: 0 100%, 100% 100%;
@@ -101,27 +122,31 @@ input:focus {
   outline: none;
 }
 
-.form-group {
+.reg-form-group {
   position: relative;
-  margin-bottom: 25px;
   overflow: hidden;
+  margin-top: 10px;
 }
 
-.icon{
+.icon {
   position: absolute;
   left: 5px;
-  margin-top:11px;
+  margin-top: 11px;
   top: 50%;
   display: inline-block;
 }
 
-.form-input {
+.reg-form-input {
   color: #999;
   width: 250px;
-  padding: 0 0 10px 35px;
-  margin-top: 55px;
+  padding: 0 0 8px 35px;
   overflow: hidden;
   font-family: "Poppins", sans-serif;
+}
+
+.reg-form-input:first-child {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .reg-link {
@@ -131,23 +156,33 @@ input:focus {
   font-size: 17px;
 }
 
-.login-button {
+.reg-button {
   display: inline-block;
-  background: #a0ffbe;
+  background: #dadada;
   color: #1f2937;
   font-weight: 600;
-  border: none;
-  padding: 15px 39px;
   border-radius: 5px;
   cursor: pointer;
-  width: 150px;
+  width: 230px;
   height: 50px;
   font-family: "Poppins", sans-serif;
-  margin-top: auto;
-  margin-left: 25%;
+  margin-top: 30px;
+  margin-left: 10%;
+  box-shadow: 0 2px 0 #242628;
+  transition: 0.3s;
   border: #1f2937 1px solid;
+  font-size: 18px;
 }
 
-.login-button:hover {
-  background: blue;
+.reg-button:hover {
+  background: #19b2e6;
 }
+
+.error-valid-massage{
+  color: #ff3c3c;
+  -webkit-text-stroke: 0.2px #1f2937;
+  font-size: 10px;
+  padding-left: 25px;
+}
+
+

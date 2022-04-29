@@ -1,20 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import AppRouter from "./components/AppRouter";
 import authContext from "./context/authContext";
+import useAuth from "./hooks/useAuth";
 
 const App = () => {
-  const [auth, setAuth] = useState({
-    id: null,
-    email: "",
-    firstName: "",
-  });
 
-  const isAuth = !!auth.id; // приводит значение к булиан типу
+  const {login, user} = useAuth()
+  
+ const isAuth = !!user?.id;
 
   return (
-    <authContext.Provider value={{ auth, setAuth, isAuth }}>
+    <authContext.Provider value={{ user,login, isAuth }}>
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>

@@ -1,33 +1,31 @@
 import React, { useState, useContext, useEffect } from "react";
-import useInput from "./../hooks/useInput";
 import { NavLink } from "react-router-dom";
+import { useFormik } from "formik";
 import {
   MARKET_ROUTE,
-  LIKES_ROUTE,
   REGISTRATION_ROUTE,
 } from "./../utils/consts";
 import authContext from "../context/authContext";
-import "./Auth.css";
+import "./../styles/Auth.css";
+import AuthFormShema from "../shemas/AuthFormShema";
 
 const Auth = () => {
-  const email = useInput("", { isEmpty: true, minLength: 3, isEmail: true });
-  const password = useInput("", { isEmpty: true, minLength: 6, maxLength: 16 });
-
   const [data, setData] = useState(null);
-  const login = useContext(authContext);
+  const auth = useContext(authContext);
 
   useEffect(() => {
-    if (data !== null) {
+    if (data) {
       let { id, email, firstName } = data;
-      login.setAuth({
+      auth.login({
         id,
         email,
         firstName,
       });
+      localStorage.setItem("user", JSON.stringify({ id, email, firstName }));
     }
   }, [data]);
 
-  const onAuth = async (e) => {
+  const onAuth = async (e,value) => {
     e.preventDefault();
     let result = await fetch("http://localhost:8080/api/v1/user/login", {
       method: "POST",
@@ -36,15 +34,22 @@ const Auth = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email.value,
-        password: password.value,
+        email: formik.values.email,
+        password: formik.values.password,
       }),
     });
-
+   
     let dataJSON = await result.json();
-    console.log(dataJSON);
     setData(dataJSON);
   };
+
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      email: "",
+    },
+    validationSchema: AuthFormShema,
+  });
 
   return (
     <div className="main">
@@ -54,8 +59,7 @@ const Auth = () => {
             <div className="logo">
               <NavLink to={MARKET_ROUTE}>CarSale</NavLink>
             </div>
-
-            <img src="https://a.d-cd.net/twAAAgLKeOA-960.jpg"></img>
+            <img src="https://a.d-cd.net/Y2yjPOeCZayMFG4Ecs32pkkzPJ8-1920.jpg"></img>
             <div className="reg-link">
               <NavLink to={REGISTRATION_ROUTE}>Зарегестроваться!</NavLink>
             </div>
@@ -70,39 +74,42 @@ const Auth = () => {
                   src="https://img.icons8.com/ios-glyphs/344/contacts.png"
                 ></img>
                 <input
-                  onChange={(e) => email.onChange(e)}
-                  onBlur={(e) => email.onBlur(e)}
-                  value={email.value}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
                   name="email"
-                  type="text"
+                  type="email"
                   placeholder="Enter email"
                   className="form-input"
                 />
               </div>
-              {email.isDirty && email.isEmpty && (
-                <div style={{ color: "red" }}>Поле не заполнено</div>
-              )}
-              {email.isDirty && email.emailError && (
-                <div style={{ color: "red" }}>Неккоректно введён майл</div>
-              )}
+              <div className="error-valid-massage">
+                &nbsp;
+                {formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : null}
+              </div>
               <div className="form-group">
                 <img
                   className="icon"
-                  src="https://img.icons8.com/ios-glyphs/344/password--v1.png"
+                  src="https://img.icons8.com/fluency-systems-filled/344/forgot-password.png  "
                 ></img>
                 <input
-                  onChange={(e) => password.onChange(e)}
-                  onBlur={(e) => password.onBlur(e)}
-                  value={password.value}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
                   name="password"
-                  type="text"
+                  type="password"
                   placeholder="Enter password"
                   className="form-input"
                 />
               </div>
-              {password.isDirty && password.isEmpty && (
-                <div style={{ color: "red" }}>Поле не заполнено</div>
-              )}
+              <div className="error-valid-massage">
+                &nbsp;
+                {formik.touched.password && formik.errors.password
+                  ? formik.errors.password
+                  : null}
+              </div>
               <button className="login-button" type="submit">
                 Войти
               </button>

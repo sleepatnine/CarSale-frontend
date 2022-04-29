@@ -1,0 +1,16 @@
+.account-logo img {
+  width: 40px;
+  margin: 10px 35px 0px 20px;
+  cursor: pointer;
+}
+
+.account-bar {
+  display: inline-flex;
+  align-items: center; 
+}
+
+.account-bar div {
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+}

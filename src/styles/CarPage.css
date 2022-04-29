@@ -1,0 +1,100 @@
+
+hr {
+    color:  #727272;   
+    margin: 20px 0;
+}
+
+.carpage-footer{
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}   
+
+.carpage{
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-top:30px
+}
+
+.сarpage-main-info{
+    color: black;
+    font-size: 40px;
+}
+
+.car-date{
+    margin-left: auto;
+    font-size: 20px;
+}
+
+.photos{
+    width: 60%;
+}
+
+.car-cantainer{
+    display:flex;
+}
+
+.main-photo{
+    background-color:#727272;
+    border:1px solid black;
+    border-radius: 5px;
+    height: 400px;
+}
+
+.child-photo{
+    display: inline-flex;
+    flex-wrap: wrap;
+    background-color:#727272;
+    border:1px solid black;
+    border-radius: 5px;
+    height: 100px;
+    width: 24%;
+    margin-right: 5px;
+    margin-top: 7px;
+}
+
+.child-photo img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.slick-slide img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.child-photo:last-child{
+    margin-right: 0px;
+    
+}
+
+.car-info-price{
+    font-size: 30px;
+}
+
+.car-all-info{
+    color:#727272;
+    margin-left: auto;
+}
+
+.car-all-info div{
+    text-align: end;
+    font-size: 21px;
+    -webkit-text-stroke: 0.2px black;
+}
+
+.car-information{
+    margin-left: auto;
+}
+
+.car-description{
+
+}
+
+.description{
+    margin: 0 40px;
+    color:#727272;
+}
