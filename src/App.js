@@ -7,12 +7,12 @@ import useAuth from "./hooks/useAuth";
 
 const App = () => {
 
-  const {login, user} = useAuth()
+  const {login, user, logout} = useAuth()
   
  const isAuth = !!user?.id;
 
   return (
-    <authContext.Provider value={{ user,login, isAuth }}>
+    <authContext.Provider value={{ user,login, logout, isAuth }}>
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>

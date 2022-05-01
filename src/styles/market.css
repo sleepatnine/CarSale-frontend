@@ -17,7 +17,6 @@
 }
 
 .market-logo {
-  margin-left: 35px;
   font-size: 45px;
   font-weight: 600;
   font-family: "Poppins", SemiBold;
@@ -61,7 +60,6 @@
 }
 
 .button--showall{
-  margin-left: 35px;
   background: #dadada;
   color: #1f2937;
   font-weight: 600;
@@ -95,21 +93,22 @@
 .market-container-links{
   display: flex;
   margin-top: 70px;
-  justify-content: center;
 }
 
 .car-links{
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  width: 100%;
   font-size: 17px;
+  margin-bottom: 40px;
 }
 
 .car-links div{
   margin-right: 25px;
-  width: 150px;
+  width: 178px;
   position: relative;
   cursor: pointer;
+  padding-left: 30px;
 }
 
 .car-links div::before {
@@ -119,7 +118,7 @@
   height: 5px;
   background-color: #000;
   border-radius: 50%;
-  left: -15px;
+  left: 4px;
   top: 46%;
 
 
@@ -139,19 +138,27 @@
 }
 
 .filter-conteiner{
+  width: 100%;
   display: inline-flex;
-  justify-content: center;
 }
 
 .filter-dropdown-caontainer{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-content: space-between;
-  width: 55%;
+  width: 78%;
   height: 100px;
-  margin-left: 35px;
 }
+
+.filter-dropdown-caontainer .dropdown {
+  width: 33%;
+}
+
+/*input*/
+
+/* .filter-dropdown-caontainer .input {
+  width: 33%;
+} */
 
 .filter-buttons{
   max-width: 200px ;
@@ -174,3 +181,21 @@
   display: flex;
   align-items: center;
 }
+
+.button-showall {
+  margin-bottom: 60px;
+}
+
+.params {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.slider-menu {
+  width: 100%;
+}
+
+.car-information {
+  
+}
+

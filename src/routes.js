@@ -36,15 +36,18 @@ export const publicRoutes = [
     Component: Market,
   },
   {
-    path: LOGIN_ROUTE,
-    Component: Auth,
+    path: CAR_ROUTE + "/:id",
+    Component: CarPage,
   },
+];
+
+export const notAuthRoutes = [
   {
     path: REGISTRATION_ROUTE,
     Component: Registration,
   },
   {
-    path: CAR_ROUTE + "/:id",
-    Component: CarPage,
+    path: LOGIN_ROUTE,
+    Component: Auth,
   },
-];
+]

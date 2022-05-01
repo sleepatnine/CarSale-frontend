@@ -16,7 +16,6 @@ const AutoCard = ({ values }) => {
     getPhoto();
   }, [values])
 
-  console.log('photo', photo)
 
   return (
     <NavLink to={`${CAR_ROUTE}/${values.id}`} className="card">

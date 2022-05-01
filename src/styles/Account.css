@@ -1,7 +1,10 @@
 .account-logo img {
   width: 40px;
-  margin: 10px 35px 0px 20px;
   cursor: pointer;
+}
+
+.account-logo{
+  margin: 10px 35px 0px 20px;
 }
 
 .account-bar {

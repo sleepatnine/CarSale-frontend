@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./../styles/dropdown.css";
 
-const Dropdown = ({ selected, setSelected, values}) => {
+const Dropdown = ({ selected, setSelected, values }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -14,12 +14,14 @@ const Dropdown = ({ selected, setSelected, values}) => {
           {values.map((option) => (
             <div
               onClick={(e) => {
-                setSelected(option.name);
+                setSelected(option.name || ((option.type && option.displacement) ? option.displacement/1000 + " " + option.type :  option.type ));
+
                 setIsActive(false);
               }}
               className="dropdown-item"
             >
-              {option.name}
+              {option.name || ( (option.type && option.displacement) ? option.displacement/1000 + " " + option.type :  option.type )}
+              
             </div>
           ))}
         </div>

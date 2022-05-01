@@ -8,13 +8,18 @@ const useAuth = () => {
     setUser(dataUser);
   });
 
+  const logout = () => {
+    localStorage.clear();
+    
+  }
+
   useEffect(() => {
     const localUser = localStorage.getItem("user");
     if (localUser) {
       login(JSON.parse(localUser));
     }
   }, []);
-  return { user, login };
+  return { user, login, logout };
 };
 
 export default useAuth;

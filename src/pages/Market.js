@@ -1,33 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, NavLink } from "react-router-dom";
 import Button from "../components/Button";
-import authContext from "../context/authContext";
-import { ADT_ROUTE, LOGIN_ROUTE, MARKET_ROUTE, LIKES_ROUTE } from "../utils/consts";
 import Dropdown from "../components/Dropdown";
-import "./../styles/market.css";
 import AutoCard from "../components/AutoCard";
 import Container from "../components/Container";
-import AccountLogo from "../components/AccountLogo";
+import Header from "../components/Header";
+import "./../styles/market.css";
+import Inpits from "../components/Inputs";
 
 const Market = () => {
-  const { isAuth } = useContext(authContext);
   const [producers, setProducers] = useState([]);
   const [cars, setCars] = useState([]);
+  const [filterCars, setFilterCars] = useState([]);
   const [models, setModels] = useState([]);
   const [generations, setGenerations] = useState([]);
   const [showAllModels, setShowAllModels] = useState(false);
-  const [showAllCars, setShowAllCars] = useState(false);
   const [selectedProducer, setSelectedProducer] = useState("Марка");
   const [selectedModel, setSelectedModel] = useState("Модель");
   const [selectedGeneration, setSelectedGeneration] = useState("Поколение");
-
-  let history = useHistory();
+  const [inputPriceFrom, setInputPriceFrom] = useState();
+  const [inputPriceTo, setInputPriceTo] = useState();
+  const [yearFrom, setYearFrom] = useState();
+  const [yearTo, setYearTo] = useState();
+  const [sizeEngineFrom, setSizeEngineFrom] = useState();
+  const [sizeEngineTo, setSizeEngineTo] = useState();
 
   useEffect(() => {
     const getResult = async () => {
-      const result = await fetch(
-        "http://localhost:8080/api/v1/producer/all"
-      );
+      const result = await fetch("http://localhost:8080/api/v1/producer/all");
       const resultJSON = await result.json();
       setProducers(resultJSON);
     };
@@ -62,35 +61,18 @@ const Market = () => {
     getGenerations();
   }, [selectedModel]);
 
-  const onAddAdt = () => {
-    if (isAuth) {
-      history.push(ADT_ROUTE);
-    } else {
-      history.push(LOGIN_ROUTE);
-    }
-  };
-
-  const onAccount = () =>{
-    if (isAuth) {
-      history.push(LIKES_ROUTE);
-    } else {
-      history.push(LOGIN_ROUTE);
-    }
-  }
-
   const onShowAllModels = () => {
     setShowAllModels(true);
   };
 
-  const onShowAllCars = () => {
+  useEffect(() => {
     const getResultCars = async () => {
       const result = await fetch("http://localhost:8080/api/v1/car-ad");
       const resultJSON = await result.json();
       setCars(resultJSON);
     };
     getResultCars();
-    setShowAllCars(true);
-  };
+  }, []);
 
   const onChoseMark = (producer) => {
     setSelectedProducer(producer);
@@ -102,24 +84,35 @@ const Market = () => {
       setCars(resultJSON);
     };
     getResultCars();
-    setShowAllCars(true);
+  };
+
+  const onFilter = () => {
+    let filtredCars = cars;
+
+    // if(selectedProducer !== 'Марка') {
+    //   filtredCars = filtredCars.filter((car) => car.generation.model.producer ==  selectedProducer)
+    // }
+    if (selectedProducer !== "Марка") {
+      filtredCars = filtredCars.filter(
+        (car) => car.generation.model.producer.name == selectedProducer
+      );
+    }
+    if (selectedModel !== "Модель") {
+      filtredCars = filtredCars.filter(
+        (car) => car.generation.model.name == selectedModel
+      );
+    }
+    if (selectedGeneration !== "Поколение")
+      filtredCars = filtredCars.filter(
+        (car) => car.generation.name == selectedGeneration
+      );
+    setFilterCars(filtredCars);
   };
 
   return (
     <div>
       <Container>
-        <div className="header">
-          <div className="market-logo">
-            <NavLink to={MARKET_ROUTE}>CarSale</NavLink>
-          </div>
-          <div className="header-button">
-          {isAuth ? <AccountLogo/> : <Button stl={"login"} onClick={onAccount} text="Войти" />}
-          
-            
-            <Button stl={"adt"} onClick={onAddAdt} text="Подать обьявление" />
-          </div>
-        </div>
-
+        <Header />
         <div className="market-container-links">
           <div className="car-links">
             {producers.map((producersList, idx) => {
@@ -151,10 +144,10 @@ const Market = () => {
             })}
           </div>
         </div>
-        <div>
+        <div className="button-showall">
           <Button stl={"show-all"} onClick={onShowAllModels} text="Show All" />
         </div>
-        <p>PARAMS</p>
+        <p className="params">PARAMS</p>
         <div className="filter-conteiner">
           <div className="filter-dropdown-caontainer">
             <Dropdown
@@ -172,28 +165,31 @@ const Market = () => {
               setSelected={setSelectedGeneration}
               values={generations}
             />
-            <Dropdown />
-            <Dropdown />
-            <Dropdown />
+            <Inpits name="Цена от" value={inputPriceFrom}></Inpits>
+            <Inpits name="Цена до" />
+            <Inpits name="Год от" />
+            <Inpits name="Год до" />
+            <Inpits name="Объём от" />
+            <Inpits name="Оъём до" />
           </div>
           <div className="filter-buttons">
-            <Button stl={"filter"} text="Select" />
-            <Button stl={"filter"} text="Clear" />
+            <Button stl={"filter"} text="Select" onClick={onFilter} />
+            <Button
+              stl={"filter"}
+              text="Clear"
+              onClick={() => setFilterCars([])}
+            />
           </div>
         </div>
+
         <br />
-        <br />
-        <Button
-          stl={"show-all"}
-          onClick={onShowAllCars}
-          text="View all model"
-        />
-        <br />
-        {cars.map((car) => {
-          if (showAllCars) {
-            return <AutoCard values={car} />;
-          }
-        })}
+        {filterCars.length != 0
+          ? filterCars.map((car) => {
+              return <AutoCard values={car} />;
+            })
+          : cars.map((car) => {
+              return <AutoCard values={car} />;
+            })}
       </Container>
     </div>
   );

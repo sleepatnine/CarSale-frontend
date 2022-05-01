@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { MARKET_ROUTE } from "./../utils/consts";
+import { MARKET_ROUTE, LOGIN_ROUTE } from "./../utils/consts";
 import "./../styles/Registration.css";
+import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import RegFormShema from "../shemas/RegFormShema";
 
 const Registration = () => {
   const [data, setData] = useState(null);
 
-  const onRegistration = async (e,values) => {
+  let history = useHistory();
+
+  const onRegistration = async (e, values) => {
     e.preventDefault();
     let result = await fetch("http://localhost:8080/api/v1/user/register", {
       method: "POST",
@@ -24,8 +27,12 @@ const Registration = () => {
       }),
     });
 
-    let dataJSON = await result.json();
-    setData(dataJSON);
+    if (result.ok) {
+      history.push(LOGIN_ROUTE);
+    } else {
+      let dataJSON = await result.json();
+      setData(dataJSON);
+    }
   };
 
   const formik = useFormik({

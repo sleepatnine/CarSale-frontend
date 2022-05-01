@@ -1,0 +1,12 @@
+.input-form-half {
+  background-color: #fff;
+  border: 1px solid black;
+  padding: 10px 20px;
+  margin: 0;
+  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
+  color: black;
+  border: solid #1f2937;
+  border-width: 1px 1px 0px 1px;
+  font-weight: 600;
+  width: 152px;
+}
