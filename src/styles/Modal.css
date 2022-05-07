@@ -31,3 +31,46 @@
   transform: scale(1);
   font-size: 27px;
 }
+
+.modal-edit {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5 );
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.modal-edit.active {
+  opacity: 1;
+  pointer-events:visiblePainted;
+}
+
+.modal-content-edit {
+  padding: 50px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  transform: scale(0.5);
+  transition: 0.4s all;
+  width: 40vw;
+}
+
+.modal-content-edit.active {
+  transform: scale(1);
+  font-size: 20px;
+}
+
+.edit{
+  display: flex;
+  justify-content: center;
+}
+
+.center{
+  margin-left: 100px;
+}

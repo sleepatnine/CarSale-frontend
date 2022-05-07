@@ -1,4 +1,4 @@
-.input-form-half {
+.input--filter {
   background-color: #fff;
   border: 1px solid black;
   padding: 10px 20px;
@@ -9,4 +9,48 @@
   border-width: 1px 1px 0px 1px;
   font-weight: 600;
   width: 152px;
+}
+
+.input--addadt{
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
+  color: black;
+  border: solid #1f2937;
+  border-width: 1px 1px 0px 1px;
+  font-weight: 600;
+  width: 180px;
+  height: 45px;
+  margin:0;
+}
+
+.input--descri{
+  background-color: #fff;
+  padding: 10px;
+  margin-left: 100px;
+  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
+  color: black;
+  border: 1px solid #1f2937;
+  border-radius:5px;
+  border-width: 1px 1px 0px 1px;
+  font-weight: 600;
+  width: 60%;
+  height: 30vh;
+  resize: none;
+  font-size: 17px;
+}
+
+.input--edit{
+  background-color: #fafafa;
+  padding: 10px 20px;
+  
+  color: black;
+  border: solid black;
+  border-radius: 10px;
+
+  border-width: 1px 1px 1px 1px;
+  font-weight: 600;
+  width: 180px;
+  height: 35px;
+  margin: 10px 0 0 20px;
 }

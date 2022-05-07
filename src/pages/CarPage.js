@@ -2,25 +2,20 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import { NavLink } from "react-router-dom";
-import { MARKET_ROUTE } from "../utils/consts";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "./../components/Modal";
-import authContext from "../context/authContext";
 import classNames from "classnames";
 import Header from "../components/Header";
 import "./../styles/CarPage.css";
+import Like from "../components/Like";
 
 const CarPage = () => {
   const { id } = useParams();
   const [carData, setCarData] = useState({});
   const [photos, setPhotos] = useState([]);
   const [modalActive, setModalActive] = useState(false);
-  //const user = useContext(authContext);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOpenGallery, setIsOpenGallery] = useState(false);
 
   const countSlides = classNames({
     1: photos.length === 1,
@@ -64,6 +59,7 @@ const CarPage = () => {
     drive,
     color,
     user,
+    createdOn,
   } = carData;
 
   const [nav1, setNav1] = useState();
@@ -79,9 +75,9 @@ const CarPage = () => {
       <div className="carpage-footer">
         <div className="сarpage-main-info">
           {generation?.model?.producer?.name} {generation?.model?.name}{" "}
-          {generation?.name}, {location}{" "}
+          {generation?.name}, {location} <Like carId={id} />
         </div>
-        <div className="car-date">Date of ADT</div>
+        <div className="car-date">{createdOn}</div>
       </div>
       <hr />
 

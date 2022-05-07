@@ -4,6 +4,7 @@ import Market from "./pages/Market";
 import Auth from "./pages/Auth";
 import CarPage from "./pages/CarPage";
 import Registration from "./pages/Registration";
+import Profile from "./pages/profile";
 import Adt from "./pages/Adt";
 import {
   ADMIN_ROUTE,
@@ -13,6 +14,7 @@ import {
   ADT_ROUTE,
   REGISTRATION_ROUTE,
   CAR_ROUTE,
+  PROFILE_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -27,6 +29,10 @@ export const authRoutes = [
   {
     path: ADT_ROUTE,
     Component: Adt,
+  },
+  {
+    path: PROFILE_ROUTE,
+    Component: Profile,
   }
 ];
 

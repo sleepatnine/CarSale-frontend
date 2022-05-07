@@ -14,14 +14,25 @@ const Dropdown = ({ selected, setSelected, values }) => {
           {values.map((option) => (
             <div
               onClick={(e) => {
-                setSelected(option.name || ((option.type && option.displacement) ? option.displacement/1000 + " " + option.type :  option.type ));
+                setSelected(
+                  option.name ||
+                    (option.type && option.displacement
+                      ? parseFloat(option.displacement / 1000) +
+                        "L " +
+                        option.type
+                      : option.type) ||
+                    option
+                );
 
                 setIsActive(false);
               }}
               className="dropdown-item"
             >
-              {option.name || ( (option.type && option.displacement) ? option.displacement/1000 + " " + option.type :  option.type )}
-              
+              {option.name ||
+                (option.type && option.displacement
+                  ? option.displacement / 1000 + "L " + option.type
+                  : option.type) ||
+                option}
             </div>
           ))}
         </div>

@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import AutoCard from "../components/AutoCard";
+import Container from "../components/Container";
+import Header from "../components/Header";
+import authContext from "../context/authContext";
 
 const Likes = () => {
-    return(
-        <div>
-            Likes
-        </div>
-    )
-}
+  const [cars, setCars] = useState([]);
+  const user = useContext(authContext);
+  useEffect(() => {
+    const getResultCars = async () => {
+      const result = await fetch(
+        "http://localhost:8080/api/v1/car-ad/" + user.user.id + "/liked"
+      );
+      const resultJSON = await result.json();
+      setCars(resultJSON);
+    };
+    getResultCars();
+  }, []);
+  return (
+    <Container>
+      <Header />
+      <hr />
+
+      {cars.map((car) => {
+        return <AutoCard values={car} />;
+      })}
+    </Container>
+  );
+};
 
 export default Likes;

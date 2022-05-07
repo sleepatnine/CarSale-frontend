@@ -4,7 +4,16 @@
 }
 
 .account-logo{
+  margin: 10px 0px 0px 20px;
+}
+
+.likes-logo{
   margin: 10px 35px 0px 20px;
+}
+
+.likes-logo img{
+  width: 32px;
+  cursor: pointer;
 }
 
 .account-bar {
@@ -15,5 +24,10 @@
 .account-bar div {
   font-size: 17px;
   font-weight: 400;
+}
+
+.like-picture img{
+  width: 35px;
+  display: flex;
   cursor: pointer;
 }

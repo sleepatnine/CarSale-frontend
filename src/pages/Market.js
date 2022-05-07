@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Dropdown from "../components/Dropdown";
 import AutoCard from "../components/AutoCard";
@@ -17,12 +17,12 @@ const Market = () => {
   const [selectedProducer, setSelectedProducer] = useState("Марка");
   const [selectedModel, setSelectedModel] = useState("Модель");
   const [selectedGeneration, setSelectedGeneration] = useState("Поколение");
-  const [inputPriceFrom, setInputPriceFrom] = useState();
-  const [inputPriceTo, setInputPriceTo] = useState();
-  const [yearFrom, setYearFrom] = useState();
-  const [yearTo, setYearTo] = useState();
-  const [sizeEngineFrom, setSizeEngineFrom] = useState();
-  const [sizeEngineTo, setSizeEngineTo] = useState();
+  const [inputPriceFrom, setInputPriceFrom] = useState("");
+  const [inputPriceTo, setInputPriceTo] = useState("");
+  const [yearFrom, setYearFrom] = useState("");
+  const [yearTo, setYearTo] = useState("");
+  const [sizeEngineFrom, setSizeEngineFrom] = useState("");
+  const [sizeEngineTo, setSizeEngineTo] = useState("");
 
   useEffect(() => {
     const getResult = async () => {
@@ -84,14 +84,16 @@ const Market = () => {
       setCars(resultJSON);
     };
     getResultCars();
+    onFilter();
+  };
+
+  const handleClear = () => {
+    setInputPriceFrom("");
   };
 
   const onFilter = () => {
     let filtredCars = cars;
 
-    // if(selectedProducer !== 'Марка') {
-    //   filtredCars = filtredCars.filter((car) => car.generation.model.producer ==  selectedProducer)
-    // }
     if (selectedProducer !== "Марка") {
       filtredCars = filtredCars.filter(
         (car) => car.generation.model.producer.name == selectedProducer
@@ -106,9 +108,34 @@ const Market = () => {
       filtredCars = filtredCars.filter(
         (car) => car.generation.name == selectedGeneration
       );
+
+    if (inputPriceFrom !== "") {
+      filtredCars = filtredCars.filter((car) => car.price >= inputPriceFrom);
+    }
+    if (inputPriceTo !== "") {
+      filtredCars = filtredCars.filter((car) => car.price <= inputPriceTo);
+    }
+    if (yearFrom !== "") {
+      filtredCars = filtredCars.filter((car) => car.year >= yearFrom);
+    }
+    if (yearTo !== "") {
+      filtredCars = filtredCars.filter((car) => car.year <= yearTo);
+    }
+    if (sizeEngineFrom !== "") {
+      filtredCars = filtredCars.filter(
+        (car) => car.engine?.displacement >= sizeEngineFrom
+      );
+    }
+    if (sizeEngineTo !== "") {
+      filtredCars = filtredCars.filter(
+        (car) => car.engine?.displacement <= sizeEngineTo
+      );
+    }
+
     setFilterCars(filtredCars);
   };
 
+  console.log("abradads", inputPriceFrom);
   return (
     <div>
       <Container>
@@ -122,6 +149,7 @@ const Market = () => {
                     key={producersList.id}
                     onClick={() => {
                       onChoseMark(producersList.name);
+                      //onFilter()
                     }}
                   >
                     <p>{producersList.name}</p>
@@ -165,19 +193,57 @@ const Market = () => {
               setSelected={setSelectedGeneration}
               values={generations}
             />
-            <Inpits name="Цена от" value={inputPriceFrom}></Inpits>
-            <Inpits name="Цена до" />
-            <Inpits name="Год от" />
-            <Inpits name="Год до" />
-            <Inpits name="Объём от" />
-            <Inpits name="Оъём до" />
+            <Inpits
+              stl={"filter"}
+              name="Цена от $"
+              value={inputPriceFrom}
+              setInput={setInputPriceFrom}
+            />
+            <Inpits
+              stl={"filter"}
+              name="Цена до $"
+              value={inputPriceTo}
+              setInput={setInputPriceTo}
+            />
+            <Inpits
+              stl={"filter"}
+              name="Год от"
+              
+              value={yearFrom}
+              setInput={setYearFrom}
+            />
+            <Inpits
+              stl={"filter"}
+              name="Год до"
+              value={yearTo}
+              setInput={setYearTo}
+            />
+            <Inpits
+              stl={"filter"}
+              name="Объём от"
+              value={sizeEngineFrom}
+              setInput={setSizeEngineFrom}
+            />
+            <Inpits
+              stl={"filter"}
+              name="Объём до"
+              value={sizeEngineTo}
+              setInput={setSizeEngineTo}
+            />
           </div>
           <div className="filter-buttons">
             <Button stl={"filter"} text="Select" onClick={onFilter} />
             <Button
               stl={"filter"}
               text="Clear"
-              onClick={() => setFilterCars([])}
+              onClick={() => {
+                setFilterCars([]);
+                setSelectedGeneration("Поколение");
+                setSelectedModel("Модель");
+                setSelectedProducer("Марка");
+                setInputPriceFrom("");
+                
+              }}
             />
           </div>
         </div>

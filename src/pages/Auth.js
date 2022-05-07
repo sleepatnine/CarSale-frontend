@@ -15,13 +15,14 @@ const Auth = () => {
 
   useEffect(() => {
     if (data) {
-      let { id, email, firstName } = data;
+      let { id, email, firstName ,phoneNumber} = data;
       auth.login({
         id,
         email,
         firstName,
+        phoneNumber,
       });
-      localStorage.setItem("user", JSON.stringify({ id, email, firstName }));
+      localStorage.setItem("user", JSON.stringify({ id, email, firstName, phoneNumber }));
     }
   }, [data]);
 

@@ -1,10 +1,24 @@
 import React from "react";
-import "./../styles/inputs.css"
+import classnames from "classnames"
+import "./../styles/inputs.css";
 
-const Inpits = ({ name, value }) => {
-  return <input className="input-form-half" placeholder={name}>
-    {value}
-  </input>;
+const Inpits = ({ name, setInput, stl}) => {
+
+  let inputStyle = classnames("input", {
+    "input--filter": stl == "filter",
+    "input--addadt": stl == "adt-input",
+    "input--descri": stl == "desc-input",
+    "input--edit": stl == "edit-input",
+  })
+  
+
+  return (
+    <input
+      className={inputStyle}
+      placeholder={name}      
+      onChange={(e)=>{setInput(e.target.value) }}
+    />
+  );
 };
 
 export default Inpits;

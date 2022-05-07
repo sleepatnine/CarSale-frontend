@@ -1,6 +1,7 @@
 .dropdown{
     width: 180px;
-    position: relative
+    position: relative;
+    height: 43px;
 }
 
 .dropdown .dropdown-btn{

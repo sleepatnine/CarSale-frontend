@@ -1,17 +1,20 @@
 import React from "react";
-import classnames from "classnames"
+import classnames from "classnames";
 
-
-const Button = ({ text,onClick,stl}) => {
+const Button = ({ text, onClick, stl }) => {
   let buttonStyle = classnames("button", {
     "button--signin": stl == "login",
     "button--addadt": stl == "adt",
     "button--showall": stl == "show-all",
-    "button--filter": stl == "filter"
-  })
+    "button--filter": stl == "filter",
+    "button--add": stl == "add", 
+    "buttona--add": stl == "addphoto",
+  });
 
   return (
-      <button className={buttonStyle} onClick={onClick} type="onSubmit">{text}</button>
+    <button className={buttonStyle} onClick={onClick} type="onSubmit">
+      {text}
+    </button>
   );
 };
 
