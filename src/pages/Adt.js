@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { CAR_ROUTE } from "../utils/consts";
 import ModalInfo from "../components/ModalInfo";
 import authContext from "../context/authContext";
+import Footer from "../components/Footer";
 
 const AddCar = () => {
   const [producers, setProducers] = useState([]);
@@ -371,6 +372,7 @@ const AddCar = () => {
         setActive={setModalActive}
         info={noOkInfo}
       ></ModalInfo>
+      <Footer/>
     </Container>
   );
 };

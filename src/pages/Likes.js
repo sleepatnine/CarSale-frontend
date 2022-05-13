@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import AutoCard from "../components/AutoCard";
 import Container from "../components/Container";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import authContext from "../context/authContext";
 
@@ -26,6 +27,7 @@ const Likes = () => {
       {cars.map((car) => {
         return <AutoCard values={car} />;
       })}
+      <Footer/>
     </Container>
   );
 };

@@ -11,6 +11,7 @@ import Header from "../components/Header";
 import "./../styles/CarPage.css";
 import Like from "../components/Like";
 import authContext from "../context/authContext";
+import Footer from "../components/Footer";
 
 const CarPage = () => {
   const { id } = useParams();
@@ -158,6 +159,7 @@ const CarPage = () => {
         setActive={setModalActive}
         user={user}
       ></Modal>
+      <Footer/>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Dropdown from "../components/Dropdown";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Inpits from "../components/Inputs";
 import ModalInfo from "../components/ModalInfo";
@@ -227,7 +228,7 @@ const AdminPage = () => {
       case "Engine":
         return {
           fieldName: selectedDropdown,
-          type: inputType,
+          type: selectedTypeEngine,
           displacement: inputDisplacement,
         };
       case "Color":
@@ -304,6 +305,7 @@ const AdminPage = () => {
        selectedGener = {selectedGeneration}
        isClicked={isClicked}
       />
+      <Footer/>
     </Container>
   );
 };

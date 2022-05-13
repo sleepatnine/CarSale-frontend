@@ -6,6 +6,7 @@ import Container from "../components/Container";
 import Header from "../components/Header";
 import "./../styles/market.css";
 import Inpits from "../components/Inputs";
+import Footer from "../components/Footer";
 
 const Market = () => {
   const [producers, setProducers] = useState([]);
@@ -402,6 +403,7 @@ const Market = () => {
           : sortCars.map((car) => {
               return <AutoCard values={car} />;
             })}
+        <Footer />
       </Container>
     </div>
   );

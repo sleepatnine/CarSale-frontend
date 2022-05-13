@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import AutoCard from "../components/AutoCard";
 import Button from "../components/Button";
 import Container from "../components/Container";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ModalEdit from "../components/ModalEdit";
 import ModalInfo from "../components/ModalInfo";
@@ -88,6 +89,7 @@ const Profile = () => {
           </div>
         );
       })}
+      <Footer/>
     </Container>
   );
 };
