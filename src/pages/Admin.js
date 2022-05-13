@@ -12,6 +12,7 @@ const AdminPage = () => {
   const [table, setTable] = useState("");
   const [producers, setProducers] = useState([]);
   const [models, setModels] = useState([]);
+  const [typeEngine, setTypeEngine] = useState([])
   const [generations, setGenerations] = useState([]);
   const [inputDateFrom, setInputDateFrom] = useState("");
   const [inputDateTo, setInputDateTo] = useState("");
@@ -23,6 +24,7 @@ const AdminPage = () => {
   const [selectedProducer, setSelectedProducer] = useState("Марка");
   const [selectedModel, setSelectedModel] = useState("Модель");
   const [selectedGeneration, setSelectedGeneration] = useState("Поколение");
+  const [selectedTypeEngine, setSelectedTypeEngine] = useState("Тип")
   const [modalActive, setModalActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false)
 
@@ -32,6 +34,15 @@ const AdminPage = () => {
       const result = await fetch("http://localhost:8080/api/v1/admin");
       const resultJSON = await result.json();
       setDropdowns(resultJSON);
+    };
+    getResultCars();
+  }, []);
+
+  useEffect(() => {
+    const getResultCars = async () => {
+      const result = await fetch("http://localhost:8080/api/v1/admin/engine");
+      const resultJSON = await result.json();
+      setTypeEngine(resultJSON)
     };
     getResultCars();
   }, []);
@@ -115,11 +126,10 @@ const AdminPage = () => {
       case "Engine":
         return (
           <div className="admin-bar">
-            <Inpits
-              stl={"admin-input"}
-              name="type of engine"
-              value={inputType}
-              setInput={setInputType}
+             <Dropdown
+              selected={selectedTypeEngine}
+              setSelected={setSelectedTypeEngine}
+              values={typeEngine}
             />
             <Inpits
               stl={"admin-input"}

@@ -40,7 +40,10 @@ const AddCar = () => {
   const [addedPhoto, setAddedPhoto] = useState([]);
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState(null);
+  const [modalActiveOk, setModalActiveOk] = useState(false);
   const [modalActive, setModalActive] = useState(false);
+  const okInfo = "Данные успешно добавлены"
+  const noOkInfo = "Не все поля заполнены"
 
   const user = useContext(authContext);
 
@@ -178,8 +181,12 @@ const AddCar = () => {
     let dataJSON = await result.json();
     setId(dataJSON);
     if (result.ok) {
-      setModalActive(true);
+      setModalActiveOk(true);
       setFlag(true);
+    }
+    else
+    {
+      setModalActive(true);
     }
   };
 
@@ -355,9 +362,14 @@ const AddCar = () => {
         </div>
       )}
       <ModalInfo
+        active={modalActiveOk}
+        setActive={setModalActiveOk}
+        info={okInfo}
+      ></ModalInfo>
+       <ModalInfo
         active={modalActive}
         setActive={setModalActive}
-        info={"Обьявление создано, перейдите к добавлению фотографий"}
+        info={noOkInfo}
       ></ModalInfo>
     </Container>
   );

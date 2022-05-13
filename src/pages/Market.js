@@ -296,15 +296,18 @@ const Market = () => {
                 })}
           </div>
         </div>
-        <div className="button-showall">
-          {!flag && (
-            <Button
-              stl={"show-all"}
-              onClick={onShowAllModels}
-              text="Show All"
-            />
-          )}
-        </div>
+        {selectedProducer === "Марка" && (
+          <div className="button-showall">
+            {!flag && (
+              <Button
+                stl={"show-all"}
+                onClick={onShowAllModels}
+                text="Show All"
+              />
+            )}
+          </div>
+        )}
+
         <p className="params">PARAMS</p>
         <div className="filter-conteiner">
           <div className="filter-dropdown-caontainer">
