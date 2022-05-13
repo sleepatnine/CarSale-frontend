@@ -12,6 +12,7 @@ const Tables = ({
   selectedProd,
   selectedMod,
   selectedGener,
+  isClicked,
 }) => {
   const [producers, setProducers] = useState([]);
   const [models, setModels] = useState([]);
@@ -30,7 +31,7 @@ const Tables = ({
       setDrive(resultJSON);
     };
     getResult();
-  }, []);
+  }, [isClicked]);
 
   useEffect(() => {
     const getResult = async () => {
@@ -39,7 +40,7 @@ const Tables = ({
       setEngine(resultJSON);
     };
     getResult();
-  }, []);
+  }, [isClicked]);
 
   useEffect(() => {
     const getResult = async () => {
@@ -48,7 +49,7 @@ const Tables = ({
       setColor(resultJSON);
     };
     getResult();
-  }, []);
+  }, [isClicked]);
 
   useEffect(() => {
     const getResult = async () => {
@@ -57,7 +58,7 @@ const Tables = ({
       setBody(resultJSON);
     };
     getResult();
-  }, []);
+  }, [isClicked]);
 
   useEffect(() => {
     const getResult = async () => {
@@ -79,7 +80,7 @@ const Tables = ({
       //setSelectedModel("Модель");
     };
     getModels();
-  }, [selectedProd]);
+  }, [selectedProd, isClicked]);
 
   useEffect(() => {
     const getGenerations = async () => {
@@ -93,7 +94,7 @@ const Tables = ({
     };
 
     getGenerations();
-  }, [selectedMod]);
+  }, [selectedMod,isClicked]);
 
   useEffect(() => {
     const getGenerations = async () => {
@@ -106,12 +107,12 @@ const Tables = ({
     };
 
     getGenerations();
-  }, [selectedGener]);
+  }, [selectedGener, isClicked]);
 
-  console.log("213123", selectedMod);
+  
 
   const onTable = () => {
-    console.log("aslanbek ", selectedDropdown);
+
     switch (selectedDropdown) {
       case "Engine":
         return (
@@ -119,9 +120,9 @@ const Tables = ({
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>id</TableCell>
-                  <TableCell align="right">Type</TableCell>
-                  <TableCell align="right">Displaceent</TableCell>
+                  <TableCell><b>id</b></TableCell>
+                  <TableCell align="right"><b>Type</b></TableCell>
+                  <TableCell align="right"><b>Displaceent</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -148,8 +149,8 @@ const Tables = ({
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>id</TableCell>
-                  <TableCell align="center">Name</TableCell>
+                  <TableCell><b>id</b></TableCell>
+                  <TableCell align="center"><b>Name</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -175,8 +176,8 @@ const Tables = ({
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>id</TableCell>
-                  <TableCell align="center">Name</TableCell>
+                  <TableCell><b>id</b></TableCell>
+                  <TableCell align="center"><b>Name</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -228,8 +229,8 @@ const Tables = ({
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell align="center">Producer</TableCell>
+                    <TableCell><b>id</b></TableCell>
+                    <TableCell align="center"><b>Producer</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -251,8 +252,8 @@ const Tables = ({
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell align="center">Model</TableCell>
+                    <TableCell><b>id</b></TableCell>
+                    <TableCell align="center"><b>Model</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -274,10 +275,10 @@ const Tables = ({
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell align="center">Generation</TableCell>
-                    <TableCell align="center">startOfProduction</TableCell>
-                    <TableCell align="center">endOfProduction</TableCell>
+                    <TableCell><b>id</b></TableCell>
+                    <TableCell align="center"><b>Generation</b></TableCell>
+                    <TableCell align="center"><b>startOfProduction</b></TableCell>
+                    <TableCell align="center"><b>endOfProduction</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -304,6 +305,7 @@ const Tables = ({
       default:
         return "";
     }
+    
   };
 
   return <div>{onTable()}</div>;

@@ -1,37 +1,43 @@
-
-.profile-container{
-    display: flex;
-    margin-top: 10% ;
-    flex-direction: column;
+.profile-container {
+  display: flex;
+  margin-top: 2%;
+  flex-direction: column;
 }
 
-.profile-info{
-    font-size: 25px;
-    margin: 50px 400px;
+.profile-info {
+  font-size: 25px;
+  margin-left: 100px;
 }
 
-.button-edit-profile{
-    display: flex;
+.button-edit-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.header-profiler{
+.profile-edit-container{
     display: flex;
     justify-content: space-between;
-    font-size: 27px;
 }
 
-.card-basket{
-    cursor: pointer;
+.header-profiler {
+  display: flex;
+  justify-content: space-between;
+  font-size: 27px;
+}
 
-    width: 30px;
+.card-basket {
+  cursor: pointer;
+
+  width: 30px;
 }
 
 .card-profile {
-    position: relative;
+  position: relative;
 }
 
 .card-profile .card-basket {
-    position: absolute;
-    right: 40px;
-    top: 48%;
+  position: absolute;
+  right: 40px;
+  top: 48%;
 }

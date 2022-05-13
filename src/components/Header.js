@@ -32,13 +32,21 @@ const Header = () => {
   };
 
   const onAmin = () => {
-      history.push(ADMIN_ROUTE);
-  }
+    history.push(ADMIN_ROUTE);
+  };
+
+  const onRefresh = () => {
+    if (history.location.pathname == MARKET_ROUTE) {
+      window.location.reload();
+    }
+  };
 
   return (
     <div className="header">
       <div className="market-logo">
-        <NavLink to={MARKET_ROUTE}>CarSale</NavLink>
+        <NavLink to={MARKET_ROUTE} onClick={onRefresh}>
+          CarSale
+        </NavLink>
       </div>
       <div className="header-button">
         {isAuth ? (
@@ -47,8 +55,11 @@ const Header = () => {
           <Button stl={"login"} onClick={onAccount} text="Войти" />
         )}
         {/* <div onClick={logout}>Выход</div> */}
-        {user?.role !== 'ADMIN' ?  <Button stl={"adt"} onClick={onAddAdt} text="Подать обьявление" /> : <Button stl={"adt"} onClick={onAmin} text="Перейти в админку" />}
-        
+        {user?.role !== "ADMIN" ? (
+          <Button stl={"green"} onClick={onAddAdt} text="Подать обьявление" />
+        ) : (
+          <Button stl={"adt"} onClick={onAmin} text="Перейти в админку" />
+        )}
       </div>
     </div>
   );

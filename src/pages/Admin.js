@@ -24,6 +24,8 @@ const AdminPage = () => {
   const [selectedModel, setSelectedModel] = useState("Модель");
   const [selectedGeneration, setSelectedGeneration] = useState("Поколение");
   const [modalActive, setModalActive] = useState(false);
+  const [isClicked, setIsClicked] = useState(false)
+
 
   useEffect(() => {
     const getResultCars = async () => {
@@ -207,6 +209,7 @@ const AdminPage = () => {
     if (result.ok) {
       setModalActive(true);
     }
+    setIsClicked(!isClicked);
   };
 
   const sendOnBack = () => {
@@ -276,7 +279,7 @@ const AdminPage = () => {
         />
         {renderSwitch(selectedDropdown)}
 
-        <Button stl={"filter"} text="ADD" onClick={sendOn} />
+        <Button stl={"filter"} text="ADD" onClick={sendOn}  />
       </div>
       <ModalInfo
         active={modalActive}
@@ -289,6 +292,7 @@ const AdminPage = () => {
        selectedProd={selectedProducer}
        selectedMod={selectedModel}
        selectedGener = {selectedGeneration}
+       isClicked={isClicked}
       />
     </Container>
   );

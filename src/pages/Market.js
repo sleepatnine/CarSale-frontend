@@ -26,6 +26,7 @@ const Market = () => {
   const [sizeEngineFrom, setSizeEngineFrom] = useState("");
   const [sizeEngineTo, setSizeEngineTo] = useState("");
   const [isProducerClicked, setIsProducerClicked] = useState(false);
+  const [isSortClicked, setIsSortClicked] = useState(false);
   const [flag, setFlag] = useState(false);
 
   useEffect(() => {
@@ -86,6 +87,12 @@ const Market = () => {
 
   const onChoseModel = (model) => {
     setSelectedModel(model);
+    setIsProducerClicked(!isProducerClicked);
+  };
+
+  const onChoseGeneration = (model) => {
+    setSelectedGeneration(model);
+    setIsProducerClicked(!isProducerClicked);
   };
 
   useEffect(() => {
@@ -101,13 +108,13 @@ const Market = () => {
     "Старые Объявл.",
   ];
 
-  useEffect(() => {    
+  useEffect(() => {
     onSort(selectedSort);
+    setIsSortClicked(!isSortClicked);
   }, [selectedSort]);
 
-
-  useEffect(() => {    
-    setSortCars([...cars])
+  useEffect(() => {
+    setSortCars(cars);
     onSort(selectedSort);
   }, [cars]);
 
@@ -131,20 +138,62 @@ const Market = () => {
     }
     if (sort === "Новые Объявл.") {
       sortedCars = sortedCars.sort(
-        (car, cars) => +car.createdOn - +cars.createdOn
+        (car, cars) => new Date(car.createdOn) - new Date(cars.createdOn)
       );
     }
     if (sort === "Старые Объявл.") {
       sortedCars = sortedCars.sort(
-        (car, cars) => +cars.createdOn - +car.createdOn
+        (car, cars) => new Date(cars.createdOn) - new Date(car.createdOn)
       );
     }
 
-    setSortCars((prevState)=> sortedCars);
+    setCars(sortedCars);
+
+    let filtredCars = sortCars;
+
+    if (selectedProducer !== "Марка") {
+      filtredCars = filtredCars.filter(
+        (car) => car.generation.model.producer.name == selectedProducer
+      );
+    }
+    if (selectedModel !== "Модель") {
+      filtredCars = filtredCars.filter(
+        (car) => car.generation.model.name == selectedModel
+      );
+    }
+    if (selectedGeneration !== "Поколение")
+      filtredCars = filtredCars.filter(
+        (car) => car.generation.name == selectedGeneration
+      );
+
+    if (inputPriceFrom !== "") {
+      filtredCars = filtredCars.filter((car) => car.price >= inputPriceFrom);
+    }
+    if (inputPriceTo !== "") {
+      filtredCars = filtredCars.filter((car) => car.price <= inputPriceTo);
+    }
+    if (yearFrom !== "") {
+      filtredCars = filtredCars.filter((car) => car.year >= yearFrom);
+    }
+    if (yearTo !== "") {
+      filtredCars = filtredCars.filter((car) => car.year <= yearTo);
+    }
+    if (sizeEngineFrom !== "") {
+      filtredCars = filtredCars.filter(
+        (car) => car.engine?.displacement >= sizeEngineFrom
+      );
+    }
+    if (sizeEngineTo !== "") {
+      filtredCars = filtredCars.filter(
+        (car) => car.engine?.displacement <= sizeEngineTo
+      );
+    }
+
+    setFilterCars(filtredCars);
   };
 
   const onFilter = () => {
-    let filtredCars = cars;
+    let filtredCars = sortCars;
 
     if (selectedProducer !== "Марка") {
       filtredCars = filtredCars.filter(
@@ -207,10 +256,6 @@ const Market = () => {
                       </div>
                     );
                   }
-
-                  if (producersList !== "") {
-                  }
-
                   if (idx < 24) {
                     return (
                       <div
@@ -224,8 +269,8 @@ const Market = () => {
                     );
                   }
                 })
-              : models.map((producersList) => {
-                  console.log("модели", models);
+              : selectedModel === "Модель"
+              ? models.map((producersList) => {
                   return (
                     <div
                       key={producersList.id}
@@ -236,8 +281,19 @@ const Market = () => {
                       <p>{producersList.name}</p>
                     </div>
                   );
+                })
+              : generations.map((producersList) => {
+                  return (
+                    <div
+                      key={producersList.id}
+                      onClick={() => {
+                        onChoseGeneration(producersList.name);
+                      }}
+                    >
+                      <p>{producersList.name}</p>
+                    </div>
+                  );
                 })}
-            {}
           </div>
         </div>
         <div className="button-showall">
@@ -326,22 +382,16 @@ const Market = () => {
           </div>
         </div>
         <br />
-        <div>
-          <Dropdown
-            selected={selectedSort}
-            setSelected={setSelectedSort}
-            values={sort}
-          />
-          {/* <br />
-          <br />
-          <Button
-            stl={"filter"}
-            text="Select"
-            onClick={() => onSort(selectedSort)}
-          /> */}
+        <div className="drops-sort">
+          <h3>Sort by</h3>
+          <div className="dropdown-sort">
+            <Dropdown
+              selected={selectedSort}
+              setSelected={setSelectedSort}
+              values={sort}
+            />
+          </div>
         </div>
-
-        <br />
         {filterCars.length != 0
           ? filterCars.map((car) => {
               return <AutoCard values={car} />;

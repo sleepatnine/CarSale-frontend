@@ -10,6 +10,8 @@ const Button = ({ text, onClick, stl }) => {
     "button--add": stl == "add", 
     "buttona--add": stl == "addphoto",
     "button--clear": stl == "clear",
+    "button--red": stl == "red",
+    "button--addadtgreen": stl == "green"
   });
 
   return (

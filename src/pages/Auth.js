@@ -5,10 +5,12 @@ import { MARKET_ROUTE, REGISTRATION_ROUTE } from "./../utils/consts";
 import authContext from "../context/authContext";
 import "./../styles/Auth.css";
 import AuthFormShema from "../shemas/AuthFormShema";
+import ModalInfo from "../components/ModalInfo";
 
 const Auth = () => {
   const [data, setData] = useState(null);
   const auth = useContext(authContext);
+  const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -46,7 +48,7 @@ const Auth = () => {
       setData(dataJSON);
     }
     else {
-      alert("huila idi nahui daun")
+      setModalActive(true)
     }
   };
 
@@ -124,6 +126,11 @@ const Auth = () => {
           </div>
         </div>
       </div>
+      <ModalInfo
+        active={modalActive}
+        setActive={setModalActive}
+        info={"Данные введены некорректно"}
+      ></ModalInfo>
     </div>
   );
 };

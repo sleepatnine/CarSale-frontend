@@ -5,9 +5,11 @@ import "./../styles/Registration.css";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import RegFormShema from "../shemas/RegFormShema";
+import ModalInfo from "../components/ModalInfo";
 
 const Registration = () => {
   const [data, setData] = useState(null);
+  const [modalActive, setModalActive] = useState(false);
 
   let history = useHistory();
 
@@ -32,6 +34,7 @@ const Registration = () => {
     } else {
       let dataJSON = await result.json();
       setData(dataJSON);
+      setModalActive(true)
     }
   };
 
@@ -173,6 +176,11 @@ const Registration = () => {
           </div>
         </div>
       </div>
+      <ModalInfo
+        active={modalActive}
+        setActive={setModalActive}
+        info={"Регистрация не прошла успешно"}
+      ></ModalInfo>
     </div>
   );
 };

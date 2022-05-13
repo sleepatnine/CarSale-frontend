@@ -50,6 +50,7 @@
 .modal-edit.active {
   opacity: 1;
   pointer-events:visiblePainted;
+  z-index: 10;
 }
 
 .modal-content-edit {

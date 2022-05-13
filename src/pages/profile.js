@@ -44,32 +44,35 @@ const Profile = () => {
       <div className="profile-container">
         <div className="header-profiler">
           <div>Настрйоки</div>
+        </div>
+        <div className="profile-edit-container">
+          <div className="profile-info">
+            <div>Name: {user.firstName}</div>
+            <div>Номер: {user.phoneNumber}</div>
+            <div>Почта: {user.email}</div>
+          </div>
           <div className="button-edit-profile">
             <Button
               stl={"adt"}
               text="Редактировать"
               onClick={() => setModalActive(true)}
             />
+            <NavLink to={MARKET_ROUTE}>
+            <Button stl={"red"} text="Выйти из аккаунта" onClick={logout} />
+          </NavLink>
           </div>
+          
         </div>
-        <div className="profile-info">
-          <div>Name: {user.firstName}</div>
-          <div>Номер: {user.phoneNumber}</div>
-          <div>Почта: {user.email}</div>
-        </div>
-        <NavLink to={MARKET_ROUTE}>
-          <Button stl={"adt"} text="Выйти из аккаунта" onClick={logout} />
-        </NavLink>
       </div>
       <ModalEdit
         active={modalActive}
         setActive={setModalActive}
         user={user}
-        onOpenInfoModal = {setModalInfoActive}
+        onOpenInfoModal={setModalInfoActive}
       ></ModalEdit>
-          <ModalInfo
+      <ModalInfo
         active={modalInfoActive}
-        setActive={setModalInfoActive} 
+        setActive={setModalInfoActive}
         info={"Информация изменена"}
       ></ModalInfo>
       <hr />
