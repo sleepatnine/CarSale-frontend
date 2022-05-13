@@ -10,12 +10,16 @@ import classNames from "classnames";
 import Header from "../components/Header";
 import "./../styles/CarPage.css";
 import Like from "../components/Like";
+import authContext from "../context/authContext";
 
 const CarPage = () => {
   const { id } = useParams();
   const [carData, setCarData] = useState({});
   const [photos, setPhotos] = useState([]);
   const [modalActive, setModalActive] = useState(false);
+
+  const admin = useContext(authContext);
+  console.log(admin)
 
   const countSlides = classNames({
     1: photos.length === 1,
@@ -63,7 +67,7 @@ const CarPage = () => {
   } = carData;
 
   const [nav1, setNav1] = useState();
-  const [nav2, setNav2] = useState();
+  const [nav2, setNav2] = useState(); 
 
   return (
     <div className="carpage">
@@ -75,7 +79,8 @@ const CarPage = () => {
       <div className="carpage-footer">
         <div className="сarpage-main-info">
           {generation?.model?.producer?.name} {generation?.model?.name}{" "}
-          {generation?.name}, {location} <Like carId={id} />
+          {generation?.name}, {location}{" "}
+          { admin?.user?.role === 'USER' &&  <Like carId={id} />}
         </div>
         <div className="car-date">{createdOn}</div>
       </div>

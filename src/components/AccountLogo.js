@@ -3,11 +3,9 @@ import "./../styles/Account.css";
 import authContext from "../context/authContext";
 import { NavLink } from "react-router-dom";
 import { LIKES_ROUTE, PROFILE_ROUTE } from "../utils/consts";
-import Likes from "../pages/Likes";
 
 const AccountLogo = () => {
   const user = useContext(authContext);
-
   return (
     <div className="account-bar">
       <div className="account-bar">
@@ -18,7 +16,7 @@ const AccountLogo = () => {
           </NavLink>
         </div>
       </div>
-      {Likes && (
+      {user.user.role !== 'ADMIN' && (
         <div className="likes-logo">
           <NavLink to={LIKES_ROUTE}>
             <img src="https://img.icons8.com/ios-filled/452/heart-plus.png" />

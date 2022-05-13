@@ -17,11 +17,12 @@ const Likes = () => {
     };
     getResultCars();
   }, []);
+
+
   return (
     <Container>
       <Header />
       <hr />
-
       {cars.map((car) => {
         return <AutoCard values={car} />;
       })}

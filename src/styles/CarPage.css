@@ -72,6 +72,8 @@ hr {
 
 .car-info-price {
   font-size: 30px;
+  justify-content: flex-end;
+display: flex;
 }
 
 .car-all-info {

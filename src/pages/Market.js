@@ -11,6 +11,8 @@ const Market = () => {
   const [producers, setProducers] = useState([]);
   const [cars, setCars] = useState([]);
   const [filterCars, setFilterCars] = useState([]);
+  const [sortCars, setSortCars] = useState([]);
+  const [selectedSort, setSelectedSort] = useState("Сортировать");
   const [models, setModels] = useState([]);
   const [generations, setGenerations] = useState([]);
   const [showAllModels, setShowAllModels] = useState(false);
@@ -23,6 +25,8 @@ const Market = () => {
   const [yearTo, setYearTo] = useState("");
   const [sizeEngineFrom, setSizeEngineFrom] = useState("");
   const [sizeEngineTo, setSizeEngineTo] = useState("");
+  const [isProducerClicked, setIsProducerClicked] = useState(false);
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     const getResult = async () => {
@@ -63,6 +67,7 @@ const Market = () => {
 
   const onShowAllModels = () => {
     setShowAllModels(true);
+    setFlag(true);
   };
 
   useEffect(() => {
@@ -76,19 +81,66 @@ const Market = () => {
 
   const onChoseMark = (producer) => {
     setSelectedProducer(producer);
-    const getResultCars = async () => {
-      const result = await fetch(
-        "http://localhost:8080/api/v1/car-ad/producer/" + producer
-      );
-      const resultJSON = await result.json();
-      setCars(resultJSON);
-    };
-    getResultCars();
-    onFilter();
+    setIsProducerClicked(!isProducerClicked);
   };
 
-  const handleClear = () => {
-    setInputPriceFrom("");
+  const onChoseModel = (model) => {
+    setSelectedModel(model);
+  };
+
+  useEffect(() => {
+    onFilter();
+  }, [isProducerClicked]);
+
+  const sort = [
+    "Дешёвые",
+    "Дорогие",
+    "Мин. пробег",
+    "Макс. пробег",
+    "Новые Объявл.",
+    "Старые Объявл.",
+  ];
+
+  useEffect(() => {    
+    onSort(selectedSort);
+  }, [selectedSort]);
+
+
+  useEffect(() => {    
+    setSortCars([...cars])
+    onSort(selectedSort);
+  }, [cars]);
+
+  const onSort = (sort) => {
+    let sortedCars = cars;
+
+    if (sort === "Сортировать") {
+      sortedCars = cars;
+    }
+    if (sort === "Дешёвые") {
+      sortedCars = sortedCars.sort((car, cars) => car.price - cars.price);
+    }
+    if (sort === "Дорогие") {
+      sortedCars = sortedCars.sort((car, cars) => cars.price - car.price);
+    }
+    if (sort === "Мин. пробег") {
+      sortedCars = sortedCars.sort((car, cars) => +car.mileage - +cars.mileage);
+    }
+    if (sort === "Макс. пробег") {
+      sortedCars = sortedCars.sort((car, cars) => +cars.mileage - +car.mileage);
+    }
+    if (sort === "Новые Объявл.") {
+      sortedCars = sortedCars.sort(
+        (car, cars) => +car.createdOn - +cars.createdOn
+      );
+    }
+    if (sort === "Старые Объявл.") {
+      sortedCars = sortedCars.sort(
+        (car, cars) => +cars.createdOn - +car.createdOn
+      );
+    }
+
+    setSortCars((prevState)=> sortedCars);
   };
 
   const onFilter = () => {
@@ -135,45 +187,67 @@ const Market = () => {
     setFilterCars(filtredCars);
   };
 
-  console.log("abradads", inputPriceFrom);
   return (
     <div>
       <Container>
         <Header />
         <div className="market-container-links">
           <div className="car-links">
-            {producers.map((producersList, idx) => {
-              if (showAllModels) {
-                return (
-                  <div
-                    key={producersList.id}
-                    onClick={() => {
-                      onChoseMark(producersList.name);
-                      //onFilter()
-                    }}
-                  >
-                    <p>{producersList.name}</p>
-                  </div>
-                );
-              }
+            {selectedProducer === "Марка"
+              ? producers.map((producersList, idx) => {
+                  if (showAllModels) {
+                    return (
+                      <div
+                        key={producersList.id}
+                        onClick={() => {
+                          onChoseMark(producersList.name);
+                        }}
+                      >
+                        <p>{producersList.name}</p>
+                      </div>
+                    );
+                  }
 
-              if (idx < 24) {
-                return (
-                  <div
-                    key={producersList.id}
-                    onClick={() => {
-                      onChoseMark(producersList.name);
-                    }}
-                  >
-                    <p>{producersList.name}</p>
-                  </div>
-                );
-              }
-            })}
+                  if (producersList !== "") {
+                  }
+
+                  if (idx < 24) {
+                    return (
+                      <div
+                        key={producersList.id}
+                        onClick={() => {
+                          onChoseMark(producersList.name);
+                        }}
+                      >
+                        <p>{producersList.name}</p>
+                      </div>
+                    );
+                  }
+                })
+              : models.map((producersList) => {
+                  console.log("модели", models);
+                  return (
+                    <div
+                      key={producersList.id}
+                      onClick={() => {
+                        onChoseModel(producersList.name);
+                      }}
+                    >
+                      <p>{producersList.name}</p>
+                    </div>
+                  );
+                })}
+            {}
           </div>
         </div>
         <div className="button-showall">
-          <Button stl={"show-all"} onClick={onShowAllModels} text="Show All" />
+          {!flag && (
+            <Button
+              stl={"show-all"}
+              onClick={onShowAllModels}
+              text="Show All"
+            />
+          )}
         </div>
         <p className="params">PARAMS</p>
         <div className="filter-conteiner">
@@ -208,7 +282,6 @@ const Market = () => {
             <Inpits
               stl={"filter"}
               name="Год от"
-              
               value={yearFrom}
               setInput={setYearFrom}
             />
@@ -234,7 +307,7 @@ const Market = () => {
           <div className="filter-buttons">
             <Button stl={"filter"} text="Select" onClick={onFilter} />
             <Button
-              stl={"filter"}
+              stl={"clear"}
               text="Clear"
               onClick={() => {
                 setFilterCars([]);
@@ -242,10 +315,30 @@ const Market = () => {
                 setSelectedModel("Модель");
                 setSelectedProducer("Марка");
                 setInputPriceFrom("");
-                
+                let inputs = document.querySelectorAll(
+                  ".filter-conteiner input"
+                );
+                inputs.forEach((input) => {
+                  input.value = "";
+                });
               }}
             />
           </div>
+        </div>
+        <br />
+        <div>
+          <Dropdown
+            selected={selectedSort}
+            setSelected={setSelectedSort}
+            values={sort}
+          />
+          {/* <br />
+          <br />
+          <Button
+            stl={"filter"}
+            text="Select"
+            onClick={() => onSort(selectedSort)}
+          /> */}
         </div>
 
         <br />
@@ -253,7 +346,7 @@ const Market = () => {
           ? filterCars.map((car) => {
               return <AutoCard values={car} />;
             })
-          : cars.map((car) => {
+          : sortCars.map((car) => {
               return <AutoCard values={car} />;
             })}
       </Container>

@@ -57,6 +57,11 @@
   transition: 0.3s;
   border: #1f2937 1px solid;
   font-size: 15px;
+  margin-left: 20px;
+}
+
+.button--addadt:hover{
+  background: #4682B4;
 }
 
 .button--showall{
@@ -74,6 +79,11 @@
   font-size: 15px;
 }
 
+.button--showall:hover{
+  background: #4682B4;
+}
+
+
 .button--filter{
   margin-left: 35px;
   background: #dadada;
@@ -88,6 +98,30 @@
   transition: 0.3s;
   border: #1f2937 1px solid;
   font-size: 15px;
+}
+
+.button--filter:hover{
+  background:#2E8B57;
+}
+
+.button--clear{
+  margin-left: 35px;
+  background: #dadada;
+  color: #1f2937;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 130px;
+  height: 32px;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 2px 0 #242628;
+  transition: 0.3s;
+  border: #1f2937 1px solid;
+  font-size: 15px;
+}
+
+.button--clear:hover{
+  background:#A52A2A;
 }
 
 .market-container-links{

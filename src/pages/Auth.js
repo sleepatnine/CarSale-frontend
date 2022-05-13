@@ -1,10 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import {
-  MARKET_ROUTE,
-  REGISTRATION_ROUTE,
-} from "./../utils/consts";
+import { MARKET_ROUTE, REGISTRATION_ROUTE } from "./../utils/consts";
 import authContext from "../context/authContext";
 import "./../styles/Auth.css";
 import AuthFormShema from "../shemas/AuthFormShema";
@@ -15,18 +12,22 @@ const Auth = () => {
 
   useEffect(() => {
     if (data) {
-      let { id, email, firstName ,phoneNumber} = data;
+      let { id, email, firstName, phoneNumber, role } = data;
       auth.login({
         id,
         email,
         firstName,
         phoneNumber,
+        role: role.name,
       });
-      localStorage.setItem("user", JSON.stringify({ id, email, firstName, phoneNumber }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id, email, firstName, phoneNumber, role: role.name })
+      );
     }
   }, [data]);
 
-  const onAuth = async (e,value) => {
+  const onAuth = async (e) => {
     e.preventDefault();
     let result = await fetch("http://localhost:8080/api/v1/user/login", {
       method: "POST",
@@ -39,9 +40,14 @@ const Auth = () => {
         password: formik.values.password,
       }),
     });
-   
+
     let dataJSON = await result.json();
-    setData(dataJSON);
+    if (result.ok) {
+      setData(dataJSON);
+    }
+    else {
+      alert("huila idi nahui daun")
+    }
   };
 
   const formik = useFormik({

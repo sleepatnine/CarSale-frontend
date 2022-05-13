@@ -30,7 +30,6 @@ const Like = (carId) => {
     setIsLike(true);
   };
 
-  console.log("abrahsudsa", isLike);
   const onDisliked = () => {
     const getResultCars = async () => {
       await fetch(

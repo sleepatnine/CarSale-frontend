@@ -4,14 +4,13 @@ import Inputs from "../components/Inputs";
 import Button from "./Button";
 import { useFormik } from "formik";
 import RegFormShema from "../shemas/RegFormShema";
+import ModalInfo from "./ModalInfo";
 
-const ModalEdit = ({ active, setActive, user ,logout}) => {
+const ModalEdit = ({ active, setActive, user, onOpenInfoModal}) => {
   const [inputName, setInputName] = useState(user.firstName);
   const [inputPhone, setInputPhone] = useState(user.phoneNumber);
   const [inputEmail, setInputEmail] = useState(user.email);
 
-
-{/* <div onClick={logout}>Выход</div> */}
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -21,7 +20,7 @@ const ModalEdit = ({ active, setActive, user ,logout}) => {
     validationSchema: RegFormShema,
   });
 
-  const onEditUser = async (e, values) => {
+  const onEditUser = async (e) => {
     e.preventDefault();
     let result = await fetch("http://localhost:8080/api/v1/user/" + user.id, {
       method: "PUT",
@@ -36,9 +35,9 @@ const ModalEdit = ({ active, setActive, user ,logout}) => {
       }),
     });
 
-    if (result.ok) {
-      alert("Данные успешно изменены");
-      //logout();
+    if (result.ok) {      
+      onOpenInfoModal(true)
+      setActive(false);
     }
     // else {
     //   let dataJSON = await result.json();

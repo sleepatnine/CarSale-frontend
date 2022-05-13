@@ -9,6 +9,7 @@ const Button = ({ text, onClick, stl }) => {
     "button--filter": stl == "filter",
     "button--add": stl == "add", 
     "buttona--add": stl == "addphoto",
+    "button--clear": stl == "clear",
   });
 
   return (

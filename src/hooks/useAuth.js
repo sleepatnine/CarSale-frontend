@@ -11,6 +11,7 @@ const useAuth = () => {
 
   const logout = () => {
     localStorage.clear();
+    setUser({})
   };
 
   useEffect(() => {

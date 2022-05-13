@@ -9,6 +9,7 @@ const Inpits = ({ name, setInput, stl}) => {
     "input--addadt": stl == "adt-input",
     "input--descri": stl == "desc-input",
     "input--edit": stl == "edit-input",
+    "input--data": stl == "admin-input"
   })
   
 

@@ -5,6 +5,7 @@ import {
   LOGIN_ROUTE,
   MARKET_ROUTE,
   LIKES_ROUTE,
+  ADMIN_ROUTE,
 } from "../utils/consts";
 import { useHistory, NavLink } from "react-router-dom";
 import { useContext } from "react";
@@ -12,7 +13,7 @@ import Button from "../components/Button";
 
 const Header = () => {
   let history = useHistory();
-  const { isAuth, logout } = useContext(authContext);
+  const { isAuth, user } = useContext(authContext);
 
   const onAddAdt = () => {
     if (isAuth) {
@@ -30,6 +31,10 @@ const Header = () => {
     }
   };
 
+  const onAmin = () => {
+      history.push(ADMIN_ROUTE);
+  }
+
   return (
     <div className="header">
       <div className="market-logo">
@@ -42,7 +47,8 @@ const Header = () => {
           <Button stl={"login"} onClick={onAccount} text="Войти" />
         )}
         {/* <div onClick={logout}>Выход</div> */}
-        <Button stl={"adt"} onClick={onAddAdt} text="Подать обьявление" />
+        {user?.role !== 'ADMIN' ?  <Button stl={"adt"} onClick={onAddAdt} text="Подать обьявление" /> : <Button stl={"adt"} onClick={onAmin} text="Перейти в админку" />}
+        
       </div>
     </div>
   );

@@ -9,11 +9,11 @@ import classNames from "classnames";
 import "../styles/Adt.css";
 import { NavLink } from "react-router-dom";
 import { CAR_ROUTE } from "../utils/consts";
+import ModalInfo from "../components/ModalInfo";
 import authContext from "../context/authContext";
 
 const AddCar = () => {
   const [producers, setProducers] = useState([]);
-  const [cars, setCars] = useState([]);
   const [models, setModels] = useState([]);
   const [generations, setGenerations] = useState([]);
   const [year, setYear] = useState([]);
@@ -40,6 +40,7 @@ const AddCar = () => {
   const [addedPhoto, setAddedPhoto] = useState([]);
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState(null);
+  const [modalActive, setModalActive] = useState(false);
 
   const user = useContext(authContext);
 
@@ -60,17 +61,6 @@ const AddCar = () => {
     };
     getResult();
   }, []);
-
-  // useEffect(() => {
-  //   const getResult = async () => {
-  //     const result = await fetch(
-  //       "http://localhost:8080/api/v1/generation/years/" + selectedGeneration
-  //     );
-  //     const resultJSON = await result.json();
-  //     setYear(resultJSON);
-  //   };
-  //   getResult();
-  // }, []);
 
   useEffect(() => {
     const getResult = async () => {
@@ -172,9 +162,9 @@ const AddCar = () => {
         },
         body: selectedBody,
         transmission: selectedTransmission,
-        engine: {          
+        engine: {
           id: engine.filter((eng) => {
-            return (eng.displacement / 1000 + "L " + eng.type) == selectedEngine;
+            return eng.displacement / 1000 + "L " + eng.type == selectedEngine;
           })[0].id,
         },
         drive: selectedDrive,
@@ -188,23 +178,16 @@ const AddCar = () => {
     let dataJSON = await result.json();
     setId(dataJSON);
     if (result.ok) {
-      alert("Обьявление добавлено");
+      setModalActive(true);
       setFlag(true);
     }
   };
 
-  const [image, setImage] = useState([]);
-
-  const handleChange = (e) => {
-    if (e.target.files.length) {
-      setImage(e.target.files[0]);
-    }
-  };
-
-  const handleUpload = async (e) => {
+  const handleChange = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
-    formData.append("file", image);
+    formData.append("file", e.target.files[0]);
 
     await fetch("http://localhost:8080/api/v1/car-ad/" + id + "/file", {
       method: "POST",
@@ -214,7 +197,12 @@ const AddCar = () => {
       },
       body: formData,
     });
-    setAddedPhoto(formData);
+
+    const photos = await fetch(
+      "http://localhost:8080/api/v1/car-ad/file/" + id + "/all"
+    );
+    const jsonPhotos = await photos.json();
+    setPhotos(jsonPhotos);
   };
 
   useEffect(() => {
@@ -229,7 +217,6 @@ const AddCar = () => {
       getAllPhotos();
     }
   }, [id, addedPhoto]);
-
 
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
@@ -358,17 +345,20 @@ const AddCar = () => {
               type="file"
               className="file__hidden"
               onChange={handleChange}
+              // onClick={handleUpload}
             />
             <div className="custom">Загрузить файл</div>
           </label>
-          <button className="footer-photo-button" onClick={handleUpload}>
-            Добавить загруженный файл в фото
-          </button>
           <NavLink to={`${CAR_ROUTE}/${id}`}>
             <button className="button-create-adt">Перейти к обьявлению</button>
           </NavLink>
         </div>
       )}
+      <ModalInfo
+        active={modalActive}
+        setActive={setModalActive}
+        info={"Обьявление создано, перейдите к добавлению фотографий"}
+      ></ModalInfo>
     </Container>
   );
 };
