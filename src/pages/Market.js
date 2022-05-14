@@ -309,7 +309,7 @@ const Market = () => {
           </div>
         )}
 
-        <p className="params">PARAMS</p>
+        <div className="params">PARAMS</div>
         <div className="filter-conteiner">
           <div className="filter-dropdown-caontainer">
             <Dropdown

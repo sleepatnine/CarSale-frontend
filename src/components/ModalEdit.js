@@ -4,7 +4,6 @@ import Inputs from "../components/Inputs";
 import Button from "./Button";
 import { useFormik } from "formik";
 import RegFormShema from "../shemas/RegFormShema";
-import ModalInfo from "./ModalInfo";
 
 const ModalEdit = ({ active, setActive, user, onOpenInfoModal}) => {
   const [inputName, setInputName] = useState(user.firstName);

@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ModalEdit from "../components/ModalEdit";
 import ModalInfo from "../components/ModalInfo";
+import ModalPass from "../components/ModalPass";
 import authContext from "../context/authContext";
 import "../styles/profile.css";
 import { MARKET_ROUTE } from "../utils/consts";
@@ -14,6 +15,7 @@ import { MARKET_ROUTE } from "../utils/consts";
 const Profile = () => {
   const { logout, user } = useContext(authContext);
   const [modalActive, setModalActive] = useState(false);
+  const [modalPasswordActive, setModalPasswordActive] = useState(false)
   const [modalInfoActive, setModalInfoActive] = useState(false);
 
   const [cars, setCars] = useState([]);
@@ -58,6 +60,11 @@ const Profile = () => {
               text="Редактировать"
               onClick={() => setModalActive(true)}
             />
+            <Button
+              stl={"adt"}
+              text="Изменить пароль"
+              onClick={() => setModalPasswordActive(true)}
+            />
             <NavLink to={MARKET_ROUTE}>
             <Button stl={"red"} text="Выйти из аккаунта" onClick={logout} />
           </NavLink>
@@ -65,6 +72,12 @@ const Profile = () => {
           
         </div>
       </div>
+      <ModalPass
+        active={modalPasswordActive}
+        setActive={setModalPasswordActive}
+        user={user}
+        onOpenInfoModal={setModalInfoActive}
+      ></ModalPass>
       <ModalEdit
         active={modalActive}
         setActive={setModalActive}

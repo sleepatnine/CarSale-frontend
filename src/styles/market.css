@@ -20,6 +20,7 @@
   font-weight: 600;
   font-family: "Poppins", SemiBold;
   text-decoration: none;
+  text-shadow: 0 3px 0 #64b0a8;
 }
 
 .header {
@@ -28,33 +29,33 @@
 
 .button--signin {
   margin-right: 35px;
-  background: #fff;
-  color: #1f2937;
+  background: #e0e5e6;
+  color: #0a6067;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   width: 120px;
   height: 32px;
   font-family: "Poppins", sans-serif;
-  box-shadow: 0 2px 0 #242628;
+  box-shadow: 0 2px 0 #64b0a8;
   transition: 0.3s;
-  border: #1f2937 1px solid;
+  border: #008d92 1px solid;
   font-size: 15px;
 }
 
 .button--addadt {
   margin-right: 35px;
-  background: #dadada;
-  color: #1f2937;
+  background: #e0e5e6;
+  color: #0a6067;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   width: 220px;
   height: 32px;
   font-family: "Poppins", sans-serif;
-  box-shadow: 0 2px 0 #242628;
+  box-shadow: 0 2px 0 #64b0a8;
   transition: 0.3s;
-  border: #1f2937 1px solid;
+  border: #008d92 1px solid;
   font-size: 15px;
   margin-left: 20px;
 }
@@ -86,37 +87,38 @@
 
 .button--addadtgreen {
   margin-right: 35px;
-  background: #dadada;
-  color: #1f2937;
+  background: #99bfb5;
+  color: #0a6067;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   width: 220px;
   height: 32px;
   font-family: "Poppins", sans-serif;
-  box-shadow: 0 2px 0 #242628;
+  box-shadow: 0 2px 0 #64b0a8;
   transition: 0.3s;
-  border: #1f2937 1px solid;
+  border: #008d92 1px solid;
   font-size: 15px;
   margin-left: 20px;
 }
 
-.button--addadtgreen:hover{
+.button--addadtgreen:hover {
   background: #2e8b57;
 }
 
 .button--showall {
-  background: #dadada;
-  color: #1f2937;
+  background: #e0e5e6;
+  color: #0a6067;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   width: 130px;
   height: 32px;
   font-family: "Poppins", sans-serif;
-  box-shadow: 0 2px 0 #242628;
+
+  box-shadow: 0 2px 0 #64b0a8;
   transition: 0.3s;
-  border: #1f2937 1px solid;
+  border: #008d92 1px solid;
   font-size: 15px;
 }
 
@@ -126,17 +128,17 @@
 
 .button--filter {
   margin-left: 35px;
-  background: #dadada;
-  color: #1f2937;
+  background: #99bfb5;
+  color: #0a6067;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   width: 130px;
   height: 32px;
   font-family: "Poppins", sans-serif;
-  box-shadow: 0 2px 0 #242628;
+  box-shadow: 0 2px 0 #64b0a8;
   transition: 0.3s;
-  border: #1f2937 1px solid;
+  border: #008d92 1px solid;
   font-size: 15px;
 }
 
@@ -146,17 +148,17 @@
 
 .button--clear {
   margin-left: 35px;
-  background: #dadada;
-  color: #1f2937;
+  background: #e0e5e6;
+  color: #0a6067;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   width: 130px;
   height: 32px;
   font-family: "Poppins", sans-serif;
-  box-shadow: 0 2px 0 #242628;
+  box-shadow: 0 2px 0 #64b0a8;
   transition: 0.3s;
-  border: #1f2937 1px solid;
+  border: #008d92 1px solid;
   font-size: 15px;
 }
 
@@ -175,6 +177,7 @@
   width: 100%;
   font-size: 17px;
   margin-bottom: 40px;
+  margin-left: 100px;
 }
 
 .car-links div {
@@ -190,7 +193,7 @@
   position: absolute;
   width: 5px;
   height: 5px;
-  background-color: #000;
+  background-color: #0a6067;
   border-radius: 50%;
   left: 4px;
   top: 46%;
@@ -218,6 +221,7 @@
 h3 {
   font-size: 20px;
   margin: 5px 0;
+  font-weight: 600;
 }
 
 .dropdown-sort {
@@ -269,7 +273,7 @@ h3 {
 }
 
 .button-showall {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .params {

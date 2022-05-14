@@ -4,7 +4,7 @@ html {
   margin: 0;
   padding: 0;
   border: 0;
-  background-color: #e6e6e6;
+  background-color: #f6f4f0 ;
 }
 
 div {
@@ -16,13 +16,13 @@ body {
   font-size: 13px;
   font-family: "Poppins", sans-serif;
   line-height: 1.8;
-  color: #222;
+  color: #0a6067;
   font-weight: 400;
 }
 
 a {
   text-decoration: none;
-  color: #1f2937;
+  color: #0a6067;
 }
 
 .reg-link a {
@@ -111,8 +111,8 @@ input {
   border: none;
   background: no-repeat bottom, 50% calc(100% - 1px);
   background-size: 0 100%, 100% 100%;
-  background-image: linear-gradient(0deg, #1f2937 3px, rgba(156, 39, 176, 0) 0),
-    linear-gradient(0deg, #222 1px, hsla(0, 0%, 82%, 0) 0);
+  background-image: linear-gradient(0deg, #0a6067  3px, rgba(10, 96, 103, 0) 0),
+    linear-gradient(0deg,#0a6067  1px, hsla(185, 82%, 22%, 0) 0);
 }
 
 input:focus {
@@ -137,7 +137,7 @@ input:focus {
 }
 
 .reg-form-input {
-  color: #999;
+  color: rgba(10, 96, 103, 1);
   width: 250px;
   padding: 0 0 8px 35px;
   overflow: hidden;

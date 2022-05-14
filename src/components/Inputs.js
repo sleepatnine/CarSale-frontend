@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames"
 import "./../styles/inputs.css";
 
-const Inpits = ({ name, setInput, stl}) => {
+const Inpits = ({ name, setInput, stl, type}) => {
 
   let inputStyle = classnames("input", {
     "input--filter": stl == "filter",
@@ -17,6 +17,7 @@ const Inpits = ({ name, setInput, stl}) => {
     <input
       className={inputStyle}
       placeholder={name}      
+      type ={type}
       onChange={(e)=>{setInput(e.target.value) }}
     />
   );

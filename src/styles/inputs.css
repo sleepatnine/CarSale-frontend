@@ -1,13 +1,13 @@
 .input--filter {
   background-color: #fff;
-  border: 1px solid black;
+  border: 1px solid #0a6067 ;
+  border-radius:3px;
   padding: 10px 20px;
   margin: 0;
+  color: #0a6067;
   box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-  color: black;
-  border: solid #1f2937;
   border-width: 1px 1px 0px 1px;
-  font-weight: 600;
+  font-weight: 900;
   width: 152px;
 }
 
